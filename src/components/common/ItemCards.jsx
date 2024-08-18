@@ -1,12 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { observer } from 'mobx-react';
 import ItemStore from '../../stores/Items/ItemStore';
 import Carousel from './Carousal';
 
+const Loader = () => {
+  return (
+    <div className="loader-container">
+      <div className="loader"></div>
+    </div>
+  );
+};
+
+
 function ItemCard({ id }) {
+  const [cartLoading, setCartLoading] = useState(false);
   const router = useRouter();
   const item = ItemStore.allItems[id];
 
@@ -18,10 +28,9 @@ function ItemCard({ id }) {
         display: 'flex',
         flexDirection: 'column',
         gap: '8px',
-        padding: '16px',
-        border: '0.5px solid black',
+        padding: '24px',
         borderRadius: '4px',
-        background: 'white'
+        background: '#edf2f5',
       }}
       onClick={() => {
         const path = `/item/${item.id}`;
@@ -30,10 +39,14 @@ function ItemCard({ id }) {
     >
       <Carousel
         images={pictures}
-        interval={Math.floor(Math.random() * (4000 - 1000 + 1)) + 1000}
+        interval={60000}
       />
-      <span style={{ fontWeight: '300' }}>{item.name}</span>
-      <span style={{ fontWeight: '200' }} >{item.description}</span>
+      <span style={{ fontWeight: '300' }}>
+        {item.name.toUpperCase()}
+      </span>
+      <span style={{ fontWeight: '200' }} >
+        {item.rating}
+      </span>
       <div
         style={{
           display: 'flex',
@@ -47,7 +60,36 @@ function ItemCard({ id }) {
             return <div key={color} style={{ width: '16px', height: '16px', background: color }} />;
           })}
         </div>
-        <span>${item.price}</span>
+       <div>
+       <span>Rs.{item.price}</span>
+       </div>
+      </div>
+      <div
+      style={{
+        display: 'flex',
+        justifyContent:'center'
+      }}
+      >
+        <button 
+        style={{
+          border: '0.5px solid grey',
+           padding: '4px', 
+           width: '100%',
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+
+            setCartLoading(true);
+
+            setTimeout(() => {
+              ItemStore.addItemToCart(id);
+              setCartLoading(false);
+            }, 1000);
+          }}
+        >
+          { cartLoading ? <Loader /> : 'Add to cart'}
+        </button>
       </div>
     </div>
   )

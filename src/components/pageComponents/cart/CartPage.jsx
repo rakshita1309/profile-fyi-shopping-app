@@ -130,7 +130,7 @@ function CartPage() {
           <span>${totalPrice.toFixed(2)}</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', color: 'green' }}>
-          <span>Discount:</span>
+          <span>Discount: ({appliedDiscount * 100} %)</span>
           <span>-${discountAmount.toFixed(2)}</span>
         </div>
         <hr />

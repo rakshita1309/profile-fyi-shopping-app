@@ -88,7 +88,7 @@ function CartItem(props) {
             gap: '8px'
           }}
         >
-          <span>{item?.name}</span>
+          <span>{item?.name.toUpperCase()}</span>
           <span>${item.price}</span>
         </div>
         <div

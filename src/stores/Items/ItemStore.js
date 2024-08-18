@@ -11,14 +11,12 @@ import SingleItemStore from './SingleItemStore';
 
 class ItemStore {
   allItems = {};
-  isHydrated = false;
-  cartItems = ['ak', 'ck', 'cm', 'aw'];
+  cartItems = ['ak', 'cm', 'aw'];
   wishListItems = ['bm', 'bk', 'cw'];
 
   constructor() {
     makeObservable(this, {
       allItems: observable,
-      isHydrated: observable,
       cartItems: observable,
       wishListItems: observable,
       items: computed,
@@ -33,6 +31,14 @@ class ItemStore {
     });
   }
 
+
+  addItems (items = []) {
+    items.forEach(item => this.addItem(item));
+  }
+
+  addItem (item) {
+    this.allItems[item.id] = new SingleItemStore(item);
+  }
 
   addItemToWishList(itemId) {
     if (this.wishListItems.includes(itemId)) {
@@ -79,13 +85,6 @@ class ItemStore {
     return values(this.allItems).filter(item => item.category === 'kids');
   }
 
-  addItem (item) {
-    this.allItems[item.id] = new SingleItemStore(item);
-  }
-
-  addItems (items = []) {
-    items.forEach(item => this.addItem(item));
-  }
 }
 
 

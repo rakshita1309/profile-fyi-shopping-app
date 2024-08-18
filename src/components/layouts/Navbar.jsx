@@ -24,8 +24,9 @@ function Navbar(props) {
         gap: '20px',
         minHeight: '56px',
         alignItems: 'center',
-        padding: '16px',
-        marginBottom: '8px'
+        padding: '24px',
+        marginBottom: '8px',
+        boxShadow: '0 4px 12px 0 rgba(0,0,0, .05)',
       }}
     >
       <button

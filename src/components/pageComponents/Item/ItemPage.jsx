@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 
 import ItemStore from '../../../stores/Items/ItemStore';
-import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { FaRegHeart, FaShoppingCart, FaRegStar } from "react-icons/fa";
 
 
 const Loader = () => {
@@ -74,23 +74,68 @@ function ItemPage(props) {
             width: '40%',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '24px',
             alignItems: 'flex-start'
           }}
         >
           <div style={{ fontSize: '28px' }}>
             {item?.name.toUpperCase()}
           </div>
+          <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+          >
+            <div><FaRegStar /></div>
+            <div>{item.rating}/5</div>
+          </div>
+
           <div style={{
             display: 'flex',
             flexDirection: 'row',
+            alignItems: 'center',
             gap: '24px',
             width: '100%',
           }}>
-            <div>Rs.{item?.price}</div>
-            <div style={{ color: 'grey' }}>
+            <div style={{fontSize:'24px'}}>Rs.{item?.price}</div>
+            <div style={{ color: '#ff3e6c' }}>
               Inclusive of all taxes
             </div>
+          </div>
+          <div 
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap:'36px'
+          }}
+          >
+          <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px'
+          }}
+          >
+          <div>SELECT SIZE</div>
+          <div
+          style={{ display: 'flex', flexDirection:'row', gap:'10px'}}
+          >
+            {item?.sizes.map((s) => {
+              return (
+                <div
+                style={{
+                  border: '0.5px solid grey',
+                  padding: '6px',
+                }}
+                >
+                  {s}
+                </div>
+              )
+            })}
+          </div>
           </div>
           <div
             style={{
@@ -109,7 +154,24 @@ function ItemPage(props) {
               }}
             >
               <div className='loader-container'>
-                {cartLoading ? <Loader /> : <FaShoppingCart fontSize={40} />}
+                {cartLoading ? <Loader /> :
+                <div
+                style={{
+                  display: 'flex', 
+                  flexDirection: 'row', 
+                  gap:'8px', 
+                  border: '0.5px solid #ff3e6c', 
+                  width:'100%',
+                  backgroundColor: '#ff3e6c',
+                  color: 'white',
+                  padding: '8px',
+                  alignItems: 'center'
+                }}
+                >
+                  <div> <FaShoppingCart fontSize={24} /></div>
+                  <div style={{fontSize:'16px'}}>Add to cart</div>
+                </div>
+                }
               </div>
             </button>
             <button
@@ -123,9 +185,25 @@ function ItemPage(props) {
               }}
             >
               <div>
-                {wishlistLoading ? <Loader /> : <FaRegHeart fontSize={40} />}
+                {wishlistLoading ? <Loader /> : 
+                <div
+                style={{
+                  display: 'flex', 
+                  flexDirection: 'row', 
+                  gap:'8px', 
+                  border: '0.5px solid grey', 
+                  width:'100%',
+                  padding: '8px',
+                  alignItems: 'center'
+                }}
+                >
+                  <div><FaRegHeart fontSize={24} /></div>
+                  <div style={{fontSize:'16px'}}>Add to Wishlist</div>
+                </div>
+                }
               </div>
             </button>
+          </div>
           </div>
 
 

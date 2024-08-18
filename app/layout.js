@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 import HomepageLayout from "@/src/components/layouts/HomepageLayout";
 
 export const metadata = {
-  title: "CartFull",
+  title: "Clothora",
   description: "Purchase your favourite clots",
 };
 
