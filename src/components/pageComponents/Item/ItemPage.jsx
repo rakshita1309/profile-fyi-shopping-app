@@ -126,6 +126,7 @@ function ItemPage(props) {
             {item?.sizes.map((s) => {
               return (
                 <div
+                key={s}
                 style={{
                   border: '0.5px solid grey',
                   padding: '6px',
